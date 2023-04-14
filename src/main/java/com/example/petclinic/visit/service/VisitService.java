@@ -12,6 +12,8 @@ public class VisitService {
     @Autowired
     VisitRepository visitRepository;
 
+    // simple curd for the visits
+
     public Visit createVisit(Visit visit){
         return visitRepository.save(visit);
     }
