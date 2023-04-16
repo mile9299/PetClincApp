@@ -1,0 +1,19 @@
+trigger:
+- master
+pool: azureVM
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    codeCoverageToolOption: 'JaCoCo'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    isJacocoCoverageReportXML: true
+    sqMavenPluginVersionChoice: 'latest'
+    sonarQubeRunAnalysis: false
+    goals: 'package'
