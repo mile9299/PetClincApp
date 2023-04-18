@@ -10,7 +10,8 @@ stages:
     jobs:
       - job: MavenBuildAndPackage
         displayName: Maven Build and Package Artifact
-        pool: 
+        pool:
+          name: azureVM
           vmImage: $(vmImageName)
         steps:
         - task: Maven@3
