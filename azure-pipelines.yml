@@ -1,19 +1,30 @@
 trigger:
 - master
-pool: azureVM
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    codeCoverageToolOption: 'JaCoCo'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.17'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    isJacocoCoverageReportXML: true
-    sqMavenPluginVersionChoice: 'latest'
-    sonarQubeRunAnalysis: false
-    goals: 'package'
+
+variables:
+  vmImageName: PPP-pipeline-VM
+
+stages:
+  - stage: build
+    displayName: Build stage
+    jobs:
+      - job: MavenBuildAndPackage
+        displayName: Maven Build and Package Artifact
+        pool: 
+          vmImage: $(vmImageName)
+        steps:
+        - task: Maven@3
+          inputs:
+            mavenPomFile: 'pom.xml'
+            publishJUnitResults: true
+            testResultsFiles: '**/surefire-reports/TEST-*.xml'
+            codeCoverageToolOption: 'JaCoCo'
+            javaHomeOption: 'JDKVersion'
+            jdkVersionOption: '1.17'
+            mavenVersionOption: 'Default'
+            mavenAuthenticateFeed: false
+            effectivePomSkip: false
+            isJacocoCoverageReportXML: true
+            sqMavenPluginVersionChoice: 'latest'
+            sonarQubeRunAnalysis: false
+            goals: 'package'
