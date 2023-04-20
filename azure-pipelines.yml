@@ -17,10 +17,11 @@ stages:
   - stage: build
     displayName: Build 
     jobs:
-      - job: MavenBuildAndPackage
-        displayName: Maven Build and Package Artifact
+      - job: MavenBuildThenDockerBuildAndPush
+        displayName: Maven Build Then Docker Build And Push
         steps:
         - task: Maven@3
+          displayName: MavenBuildAndPackage
           inputs:
             mavenPomFile: 'pom.xml'
             publishJUnitResults: true
@@ -33,10 +34,8 @@ stages:
             sqMavenPluginVersionChoice: 'latest'
             sonarQubeRunAnalysis: false
             goals: 'package'
-      - job: DockerBuildAndPush
-        displayName: Docker Build and Push
-        steps:
         - task: Docker@2
+          displayName: DockerBuildAndPush
           inputs:
             repository: 'https://hub.docker.com/repository/docker/bahabouali/ppp'
             command: 'buildAndPush'
