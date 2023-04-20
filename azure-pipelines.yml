@@ -35,8 +35,9 @@ stages:
             sonarQubeRunAnalysis: false
             goals: 'package'
         - task: Docker@2
-          displayName: DockerBuildAndPush
           inputs:
-            repository: 'https://hub.docker.com/repository/docker/bahabouali/ppp'
+            containerRegistry: 'Docker Hub connection'
+            repository: 'ppp'
             command: 'buildAndPush'
-            Dockerfile: 'Dockerfile'
+            Dockerfile: '**/Dockerfile'
+            buildContext: '.'
