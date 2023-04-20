@@ -3,28 +3,29 @@ trigger:
 
 variables:
   vmImageName: MyCustomAgent
+  dockerRegistryServiceConnection: bahabouali
+  imageRepository: bahabouali/ppp
+  containerRegistry: https://hub.docker.com/
+  dockerfilePath: ./Dockerfile
+  tag: '$(Build.BuildId)'
+
+pool:
+  name: MyLocalAgent
+  vmImage: $(vmImageName)
 
 stages:
   - stage: build
-    displayName: Build stage
+    displayName: Build 
     jobs:
       - job: MavenBuildAndPackage
         displayName: Maven Build and Package Artifact
-        pool:
-          name: MyLocalAgent
-          vmImage: $(vmImageName)
         steps:
-        - script: whoami
-        - script: pwd
-        - script: echo $PATH
         - task: Maven@3
           inputs:
             mavenPomFile: 'pom.xml'
             publishJUnitResults: true
             testResultsFiles: '**/surefire-reports/TEST-*.xml'
             codeCoverageToolOption: 'JaCoCo'
-#            javaHomeOption: 'JDKVersion'
-#            jdkVersionOption: '1.17'
             mavenVersionOption: 'Default'
             mavenAuthenticateFeed: false
             effectivePomSkip: false
@@ -32,3 +33,15 @@ stages:
             sqMavenPluginVersionChoice: 'latest'
             sonarQubeRunAnalysis: false
             goals: 'package'
+      - job: DockerBuildAndPush
+        displayName: Docker Build and Push
+        steps:
+        - task: Docker@2
+          displayName: Build and push an image to Dockerhub
+          inputs:
+            command: buildAndPush
+            repository: $(imageRepository)
+            dockerfile: $(dockerfilePath)
+            containerRegistry: $(dockerRegistryServiceConnection)
+            tags: |
+              $(tag)
