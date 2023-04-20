@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  vmImageName: PPP-pipeline-VM
+  vmImageName: MyCustomAgent
 
 stages:
   - stage: build
@@ -11,7 +11,7 @@ stages:
       - job: MavenBuildAndPackage
         displayName: Maven Build and Package Artifact
         pool:
-          name: azureVM
+          name: MyLocalAgent
           vmImage: $(vmImageName)
         steps:
         - script: whoami
@@ -23,8 +23,8 @@ stages:
             publishJUnitResults: true
             testResultsFiles: '**/surefire-reports/TEST-*.xml'
             codeCoverageToolOption: 'JaCoCo'
-            javaHomeOption: 'JDKVersion'
-            jdkVersionOption: '1.17'
+#            javaHomeOption: 'JDKVersion'
+#            jdkVersionOption: '1.17'
             mavenVersionOption: 'Default'
             mavenAuthenticateFeed: false
             effectivePomSkip: false
