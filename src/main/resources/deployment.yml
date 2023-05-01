@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: ppp-k8s
-          image: ppp-k8s:1.0
+          image: bahabouali/ppp:43
           ports:
             - containerPort: 8080
           env:   # Setting Enviornmental Variables
