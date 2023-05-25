@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:17-alpine
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 COPY target/petclinic-0.0.1-SNAPSHOT.jar petclinic.jar
