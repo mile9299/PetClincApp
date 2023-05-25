@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PetclinicApplication {
 
     public static void main(String[] args) {
+        System.out.println("hello from PPP!");
         SpringApplication.run(PetclinicApplication.class, args);
     }
 
