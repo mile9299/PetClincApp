@@ -13,7 +13,6 @@ spec:
   selector:
     app: postgres
     tier: database
-  clusterIP: None
 
 ---
 # Define a 'Persistent Voulume Claim'(PVC) for Postgress Storage, dynamically provisioned by cluster
@@ -39,7 +38,6 @@ metadata:
   labels:
     app: postgres
     tier: database
-
 spec:
   selector: # mysql Pod Should contain same labels
     matchLabels:
@@ -74,7 +72,6 @@ spec:
                 configMapKeyRef:
                   name: postgres-conf
                   key: name
-
           ports:
             - containerPort: 5432
               name: postgres
