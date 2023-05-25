@@ -41,6 +41,8 @@ stages:
             command: 'buildAndPush'
             Dockerfile: '**/Dockerfile'
             buildContext: '.'
+          env:
+            DOCKER_BUILDKIT: 1
         - task: CopyFiles@2
           inputs:
             SourceFolder: '.'
