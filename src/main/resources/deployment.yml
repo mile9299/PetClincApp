@@ -32,6 +32,8 @@ spec:
       containers:
         - name: ppp-k8s
           image: bahabouali/ppp:#{Build.BuildId}#
+          livenessProbe:
+            periodSeconds: 5
           ports:
             - containerPort: 8080
           env:   # Setting Environmental Variables

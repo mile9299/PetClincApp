@@ -79,6 +79,8 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgres-persistance-storage
+          livenessProbe:
+            periodSeconds: 5
       volumes:
         - name: postgres-persistance-storage
           persistentVolumeClaim:
