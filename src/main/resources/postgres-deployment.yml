@@ -80,10 +80,6 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: postgres-persistance-storage
           livenessProbe:
-            exec:
-              command:
-                - cat
-                - /tmp/healthy
             initialDelaySeconds: 5
             periodSeconds: 5
       volumes:
