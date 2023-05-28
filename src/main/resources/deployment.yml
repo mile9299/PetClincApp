@@ -34,17 +34,19 @@ spec:
           image: bahabouali/ppp:#{Build.BuildId}#
           ports:
             - containerPort: 8080
-          env:   # Setting Enviornmental Variables
+          env:   # Setting Environmental Variables
             - name: DB_HOST   # Setting Database host address from configMap
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-conf  # name of configMap
-                  key: host
+              value: postgres
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: postgres-conf  # name of configMap
+#                  key: host
             - name: DB_NAME  # Setting Database name from configMap
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-conf
-                  key: name
+              value: clinic
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: postgres-conf
+#                  key: name
             - name: POSTGRES_USER  # Setting Database username from Secret
               value: postgres
 #              valueFrom:

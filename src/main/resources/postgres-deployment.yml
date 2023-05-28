@@ -68,10 +68,11 @@ spec:
 #                  name: postgres-credentials
 #                  key: postgres_password
             - name: POSTGRES_DB
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-conf
-                  key: name
+              value: clinic
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: postgres-conf
+#                  key: name
           ports:
             - containerPort: 5432
               name: postgres
